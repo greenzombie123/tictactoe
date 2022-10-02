@@ -6,7 +6,141 @@ body {
   min-height: 100vh;
 }
 
-html{
-  font-size: 16rem;
+html {
+  font-size: 1rem;
 }
+
+.board-container {
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  width: 80vh;
+  height: 70vh;
+  border: 1px solid black;
+}
+
+.board__tile {
+
+}
+
+.board--top-left {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.board--top-center {
+  border-bottom: 1px solid black;
+}
+
+.board--top-right {
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.board--middle-left {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.board--middle-center {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.board--middle-right {
+  border-bottom: 1px solid black;
+}
+
+.board--bottom-left {
+  border-right: 1px solid black;
+}
+.board--bottom-middle {
+  border-right: 1px solid black;
+}
+
+.board--bottom-right {
+
+}
+
+.modeSelect{
+  margin: auto;
+
+	font-size: 16px;
+}
+
+modeSelect__text{
+
+}
+
+modeSelect__human-button{
+
+}
+
+.modeSelect__computer-button{
+
+}
+
+.markerSelect{
+  margin: auto;
+
+}
+
+.markerSelect__text{
+
+}
+
+.markerSelect__button{
+
+}
+
+.markerSelect__button--x{
+
+}
+
+.markerSelect__button--o{
+
+}
+
+.markerSelect__button--triangle{
+
+}
+
+.markerSelect__button--diamond{
+
+}
+
+.firstTurnSelect{
+  margin: auto;
+
+}
+
+.firstTurnSelect__text{
+
+}
+
+.firstTurnSelect__button{
+
+}
+
+.firstTurnSelect__button--playerone{
+
+}
+
+.firstTurnSelect__button--playertwo{
+
+}
+
+.firstTurnSelect__button--random{
+
+}
+
 

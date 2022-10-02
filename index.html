@@ -28,9 +28,41 @@
     <link rel="stylesheet" href="./styles/main.css" />
 
     <!--Javascript SCRIPT-->
-    <script src="scripts/script.js" defer></script>
+    <!-- <script src="scripts/script.js" defer></script> -->
+    <script src="scripts/script2.js" defer></script>
   </head>
   <body>
     <!-- WEBSITE CONTENT GOES HERE -->
+    <div class="board-container">
+      <div class="board">
+        <div class="board__tile board--top-left"></div>
+        <div class="board__tile board--top-center"></div>
+        <div class="board__tile board--top-right"></div>
+        <div class="board__tile board--middle-left"></div>
+        <div class="board__tile board--middle-center"></div>
+        <div class="board__tile board--middle-right"></div>
+        <div class="board__tile board--bottom-left"></div>
+        <div class="board__tile board--bottom-middle"></div>
+        <div class="board__tile board--bottom-right"></div>
+      </div>
+    </div>
+    <dialog class="modeSelect">
+      <h4 class="modeSelect__text">Choose a mode of play</h4>
+      <button class="modeSelect__human-button">vs Human</button
+      ><button class="modeSelect__computer-button">vs Computer</button>
+    </dialog>
+    <dialog class="markerSelect">
+      <h4 class="markerSelect__text">Choose a marker for player one</h4>
+      <button class="markerSelect__button markerSelect__button--x">X</button>
+      <button class="markerSelect__button markerSelect__button--o">O</button>
+      <button class="markerSelect__button markerSelect__button--triangle">&#9651;</button>
+      <button class="markerSelect__button markerSelect__button--diamond">&#9670;</button>
+    </dialog>
+    <dialog class="firstTurnSelect">
+      <h4 class="firstTurnSelect__text">Who will go first?</h4>
+      <button class="firstTurnSelect__button firstTurnSelect__button--playerone">Player 1</button>
+      <button class="firstTurnSelect__button firstTurnSelect__button--playertwo">Player 2</button>
+      <button class="firstTurnSelect__button firstTurnSelect__button--random">Random</button>
+    </dialog>
   </body>
 </html>
