@@ -14,6 +14,7 @@ html {
   height: 100vh;
   border: 1px solid black;
   display: flex;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }
@@ -36,9 +37,11 @@ html {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
 }
+/* background: no-repeat center/80% url('../assets/triangle.svg'); */
 
 .board--top-center {
   border-bottom: 1px solid black;
+  /* background: no-repeat center/80% url('../assets/triangle.svg'); */
 }
 
 .board--top-right {
@@ -63,13 +66,57 @@ html {
 .board--bottom-left {
   border-right: 1px solid black;
 }
-.board--bottom-middle {
+.board--bottom-center {
   border-right: 1px solid black;
 }
 
 .board--bottom-right {
 
 }
+
+.display{
+  /* border: 1px solid black; */
+  width: 60%;
+  height: 6rem;
+}
+
+.display__inner{
+
+}
+
+.display__text{
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.scoreboard{
+  /* border: 1px solid black; */
+  height: 6rem;
+  width: 12rem;
+  margin: 0 4rem;
+}
+
+.scoreboard__title{
+  text-align: center;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.scoreboard__text{
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 2.5rem;
+}
+
+.scoreboard__text--playerone{
+  
+}
+
+.scoreboard__text--playertwo{
+
+}
+
 
 .modeSelect{
   margin: auto;
@@ -140,6 +187,21 @@ modeSelect__human-button{
 }
 
 .firstTurnSelect__button--random{
+
+}
+
+.continueModal{
+  margin: auto;
+  text-align: center;
+}
+
+.continueModal__text{
+  font-size: 2rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+}
+
+.continueModal__ok-button{
 
 }
 
