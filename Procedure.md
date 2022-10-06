@@ -109,3 +109,31 @@ If you press the reset button during a game, open reset modal that has two butto
     2. When pressed, open new game modal
     3. Reset stuff
     4. When press button, call newGame()
+
+    ---
+    game
+        game.setGame
+            open mode modal
+            open marker modal
+            open first turn modal
+            call game.startGame
+        game.startGame
+            make player1 and player2
+            make gameboard
+            make tiles and add to gameboard
+            add eventHandler to tiles
+
+            call placeMarker
+                check if tile is empty
+            checkerWinner
+            checkTie
+            checkGameWinner
+            OpenContinueModal
+            nextRound
+            resetBoard
+            changeTurns
+        game.newGame
+            remove settings
+            reset board
+            call game.setGame
+            

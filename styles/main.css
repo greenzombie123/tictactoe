@@ -195,6 +195,10 @@ modeSelect__human-button{
   text-align: center;
 }
 
+.continueModal::backdrop{
+  background: rgba(0, 0, 0, 0);
+}
+
 .continueModal__text{
   font-size: 2rem;
   font-weight: bolder;
@@ -204,5 +208,19 @@ modeSelect__human-button{
 .continueModal__ok-button{
 
 }
+
+.difficultySelect{
+  margin: auto;
+}
+
+.difficultySelect__text{}
+
+.difficultySelect__easy{}
+
+.difficultySelect__normal{}
+
+.difficultySelect__hard{}
+
+.difficultySelect__impossible{}
 
 
