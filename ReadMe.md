@@ -1,8 +1,6 @@
-#This is a library app project created for the Odin Project.
+This is a tic tac toe app created for the Odin Project.
 
 ![image](assets/tictactoe.png)
-
-image
 
 # Goal
 The goal of this project is to recreate tic toe tac that can be played with one other person or with a AI bot.
