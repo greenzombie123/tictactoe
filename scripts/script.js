@@ -331,7 +331,7 @@ const game = (function () {
         const currentPlayer = player1.turn ? player1 : player2;
         element.style.setProperty(
           "background",
-          `no-repeat center/80% url(${"assets/circle.svg"})`
+          `no-repeat center/80% url(${currentPlayer.marker})`
         );
         isMarked = currentPlayer.number;
         checkWinner();
