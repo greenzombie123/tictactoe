@@ -5,8 +5,8 @@ const game = (function () {
       playerTwoType: "human",
       playerOneMarker: null,
       playerTwoMarker: null,
-      playerOneTurn: null,
-      playerTwoTurn: null,
+      playerOneTurn: false,
+      playerTwoTurn: false,
     };
 
     let computerDifficulty = null;
@@ -64,7 +64,7 @@ const game = (function () {
       const controller = new AbortController();
 
       const buttons = document.querySelectorAll(
-        "button[class^='difficultySelect__']"
+        "button[class^='difficultySelect__button']"
       );
       buttons.forEach((button) =>
         button.addEventListener("click", chooseDifficulty, {
@@ -75,7 +75,7 @@ const game = (function () {
       difficultyModal.showModal();
 
       function chooseDifficulty(event) {
-        computerDifficulty = event.target.getAttribute("class").slice(18);
+        computerDifficulty = event.target.classList[1].slice(18);
         console.log(computerDifficulty);
         difficultyModal.close();
         controller.abort();
@@ -85,34 +85,21 @@ const game = (function () {
 
     function openMarkerModal() {
       const markerSelectModal = document.querySelector(".markerSelect");
-      const x_button = document.querySelector(".markerSelect__button--x");
-      const o_button = document.querySelector(".markerSelect__button--o");
-      const triangle_button = document.querySelector(
-        ".markerSelect__button--triangle"
+      const buttons = document.querySelectorAll(
+        "button[class~='markerSelect__button']"
       );
-      const diamond_button = document.querySelector(
-        ".markerSelect__button--diamond"
-      );
-
       const controller = new AbortController();
-
-      x_button.addEventListener("click", chooseMarker, {
-        signal: controller.signal,
-      });
-      o_button.addEventListener("click", chooseMarker, {
-        signal: controller.signal,
-      });
-      triangle_button.addEventListener("click", chooseMarker, {
-        signal: controller.signal,
-      });
-      diamond_button.addEventListener("click", chooseMarker, {
-        signal: controller.signal,
-      });
+      buttons.forEach((button) =>
+        button.addEventListener("click", chooseMarker, {
+          signal: controller.signal,
+        })
+      );
 
       markerSelectModal.showModal();
 
       function chooseMarker(event) {
         const image = event.target.classList[1].slice(22);
+        event.target.setAttribute("disabled", "");
 
         const currentplayer = !playerSettings.playerOneMarker
           ? "playerOneMarker"
@@ -121,19 +108,15 @@ const game = (function () {
         switch (image) {
           case "x":
             playerSettings[currentplayer] = "../assets/x.svg";
-            x_button.setAttribute("disabled", "");
             break;
           case "o":
             playerSettings[currentplayer] = "../assets/circle.svg";
-            o_button.setAttribute("disabled", "");
             break;
           case "triangle":
             playerSettings[currentplayer] = "../assets/triangle.svg";
-            triangle_button.setAttribute("disabled", "");
             break;
           case "diamond":
             playerSettings[currentplayer] = "../assets/diamond.svg";
-            diamond_button.setAttribute("disabled", "");
             break;
 
           default:
@@ -143,11 +126,7 @@ const game = (function () {
         if (playerSettings.playerTwoMarker) {
           controller.abort();
           markerSelectModal.close();
-          x_button.removeAttribute("disabled");
-          o_button.removeAttribute("disabled");
-          triangle_button.removeAttribute("disabled");
-          diamond_button.removeAttribute("disabled");
-
+          buttons.forEach((button) => button.removeAttribute("disabled"));
           openFirstTurnModal();
 
           console.log(
@@ -159,55 +138,28 @@ const game = (function () {
 
     function openFirstTurnModal() {
       const firstTurnSelect = document.querySelector(".firstTurnSelect");
-      const playerOnebutton = document.querySelector(
-        ".firstTurnSelect__button--playerone"
+      const buttons = document.querySelectorAll(
+        "button[class~='firstTurnSelect__button']"
       );
-      const playerTwobutton = document.querySelector(
-        ".firstTurnSelect__button--playertwo"
-      );
-      const randomButton = document.querySelector(
-        ".firstTurnSelect__button--random"
-      );
-
       const controller = new AbortController();
-
-      playerOnebutton.addEventListener("click", chooseFirstTurn, {
-        signal: controller.signal,
-      });
-      playerTwobutton.addEventListener("click", chooseFirstTurn, {
-        signal: controller.signal,
-      });
-      randomButton.addEventListener("click", chooseFirstTurn, {
-        signal: controller.signal,
-      });
+      buttons.forEach((button) =>
+        button.addEventListener("click", chooseFirstTurn, {
+          signal: controller.signal,
+        })
+      );
 
       firstTurnSelect.showModal();
 
       function chooseFirstTurn(event) {
         const whoIsFirst = event.target.classList[1].slice(25);
-        switch (whoIsFirst) {
-          case "playerone":
-            playerSettings.playerOneTurn = true;
-            playerSettings.playerTwoTurn = false;
-            console.log(
-              `${playerSettings.playerOneTurn} and ${playerSettings.playerTwoTurn}`
-            );
-            break;
-          case "playertwo":
-            playerSettings.playerOneTurn = false;
-            playerSettings.playerTwoTurn = true;
-            console.log(
-              `${playerSettings.playerOneTurn} and ${playerSettings.playerTwoTurn}`
-            );
-            break;
-
-          case "random":
-            chooseRandom();
-            break;
-
-          default:
-            break;
-        }
+        if (whoIsFirst !== "random") {
+          whoIsFirst === "playerone"
+            ? (playerSettings.playerOneTurn = true)
+            : (playerSettings.playerTwoTurn = true);
+          console.log(
+            `${playerSettings.playerOneTurn} and ${playerSettings.playerTwoTurn}`
+          );
+        } else chooseRandom();
 
         controller.abort();
         firstTurnSelect.close();
@@ -215,20 +167,13 @@ const game = (function () {
       }
 
       function chooseRandom() {
-        const choice = Math.floor(Math.random() * (101 - 0) + 0);
-        if (choice < 50) {
-          playerSettings.playerOneTurn = true;
-          playerSettings.playerTwoTurn = false;
-          console.log(
-            `${playerSettings.playerOneTurn} and ${playerSettings.playerTwoTurn}`
-          );
-        } else {
-          playerSettings.playerOneTurn = false;
-          playerSettings.playerTwoTurn = true;
-          console.log(
-            `${playerSettings.playerOneTurn} and ${playerSettings.playerTwoTurn}`
-          );
-        }
+        const choice = Math.floor(Math.random() * 101);
+        choice > 50
+          ? (playerSettings.playerOneTurn = true)
+          : (playerSettings.playerTwoTurn = true);
+        console.log(
+          `${playerSettings.playerOneTurn} and ${playerSettings.playerTwoTurn}`
+        );
       }
     }
   }
@@ -269,12 +214,9 @@ const game = (function () {
       playerinfo.playerTwoMarker,
       2
     );
-    // const player1 = playerFactory("human", false, "../assets/circle.svg", 1);
-    // const player2 = playerFactory("human", true, "../assets/x.svg", 2);
 
     console.log(gameboard, player1, player2);
     console.log("Game is created!");
-
 
     function playerFactory(type, turn, marker, number) {
       let score = 0;
@@ -319,15 +261,10 @@ const game = (function () {
 
       function easyAiMove() {
         console.log(difficulty);
-        let tiles = Object.keys(gameboard);
-        let board = [];
-        tiles.forEach((tile) => {
-          if (gameboard[tile].getIsMarked() === null) {
-            board.push(gameboard[tile]);
-          }
-        });
-        const randomNum = Math.floor(Math.random() * (board.length));
-        
+        const tiles = getTiles();
+        const board = tiles.filter((tile) => tile.getIsMarked() === null);
+        const randomNum = Math.floor(Math.random() * board.length);
+
         board[randomNum].placeComputerMarker();
       }
 
@@ -392,7 +329,6 @@ const game = (function () {
           return;
         }
         const currentPlayer = player1.turn ? player1 : player2;
-        // const nextPlayer = !player2.turn ? player2 : player1;
         element.style.setProperty(
           "background",
           `no-repeat center/80% url(${currentPlayer.marker})`
@@ -474,37 +410,33 @@ const game = (function () {
           gameboard.middlecenter.getIsMarked() === currentPlayer.number &&
           gameboard.bottomleft.getIsMarked() === currentPlayer.number)
       ) {
-        currentPlayer.updateScore();
-        displayRoundWinner(currentPlayer);
+        updateScoreBoard(currentPlayer);
+        openDisplay(
+          `Player ${currentPlayer.number} won the round!`,
+          currentPlayer
+        );
         checkGameWinner();
       } else {
         checkTie();
       }
     }
 
-    function displayRoundWinner(player) {
-      //   const display = document.querySelector(".display");
-      const display_text = document.querySelector(".display__text");
-
-      const currentPlayer = player;
-
-      display_text.textContent = `Player ${currentPlayer.number} won the round!`;
-    }
-
     function checkGameWinner() {
       const currentPlayer = player1.turn ? player1 : player2;
       if (currentPlayer.getScore() === 2) {
-        updateScoreBoard(currentPlayer);
-        annouceGameWinner(currentPlayer);
+        openDisplay(
+          `Player${currentPlayer.number} is the winner!`,
+          currentPlayer
+        );
         openContinueModal(resetGame, "Press Ok To Start New Game");
       } else {
-        updateScoreBoard(currentPlayer);
         openContinueModal();
         console.log("winner!");
       }
     }
 
     function updateScoreBoard(player) {
+      player.updateScore();
       const scoreboard_text = document.querySelector(
         `.scoreboard__text--player${player.number === 1 ? "one" : "two"}`
       );
@@ -514,10 +446,6 @@ const game = (function () {
     function resetScoreBoard() {
       const scoreboards = document.querySelectorAll(".scoreboard__text");
       scoreboards.forEach((scoreboard) => (scoreboard.textContent = ""));
-    }
-
-    function annouceGameWinner(player) {
-      openDisplay(`Player${player.number} is the winner!`);
     }
 
     function openContinueModal(callback, string) {
@@ -534,10 +462,7 @@ const game = (function () {
           "click",
           () => {
             continueModal.close();
-            resetTiles();
-            callback();
-            resetBoard();
-            resetScoreBoard();
+            callback(resetTiles, resetBoard, resetScoreBoard);
             closeDisplay();
             controller.abort();
           },
@@ -586,7 +511,6 @@ const game = (function () {
 
     function openDisplay(string, player) {
       const display_text = document.querySelector(".display__text");
-
       const currentPlayer = player;
 
       display_text.textContent = string;
@@ -624,15 +548,11 @@ const game = (function () {
       );
 
       if (isTie) {
-        annouceTie();
+        openDisplay("No winner this round");
         openContinueModal();
       } else {
         changeTurns();
       }
-    }
-
-    function annouceTie() {
-      openDisplay("No winner this round");
     }
 
     /* Ai Functionality*/
@@ -716,15 +636,8 @@ const game = (function () {
       }
     }
 
-    function makeNewBoard() {
-      let newboard;
-      const tiles = Object.keys(gameboard);
-      newboard = tiles.map((tile) => gameboard[tile]);
-      return newboard;
-    }
-
     function makeCurrentBoard() {
-      const newboard = makeNewBoard();
+      const newboard = getTiles();
       const currentboard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       let counter = 0;
       newboard.forEach((tile) => {
@@ -738,8 +651,7 @@ const game = (function () {
     }
 
     function findTile(position) {
-      let tiles = Object.keys(gameboard);
-      tiles = tiles.map((tile) => gameboard[tile]);
+      tiles = getTiles();
 
       for (let index = 0; index < tiles.length; index++) {
         if (tiles[index].position === position) {
@@ -749,9 +661,18 @@ const game = (function () {
       }
     }
 
+    function getTiles() {
+      let allTiles;
+      const tiles = Object.keys(gameboard);
+      allTiles = tiles.map((tile) => gameboard[tile]);
+      return allTiles;
+    }
   }
 
-  function resetGame() {
+  function resetGame(callBackOne, callBackTwo, callBackThree) {
+    callBackOne();
+    callBackTwo();
+    callBackThree();
     setGame();
   }
 
