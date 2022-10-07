@@ -107,16 +107,16 @@ const game = (function () {
 
         switch (image) {
           case "x":
-            playerSettings[currentplayer] = "../assets/x.svg";
+            playerSettings[currentplayer] = "assets/x.svg";
             break;
           case "o":
-            playerSettings[currentplayer] = "../assets/circle.svg";
+            playerSettings[currentplayer] = "assets/circle.svg";
             break;
           case "triangle":
-            playerSettings[currentplayer] = "../assets/triangle.svg";
+            playerSettings[currentplayer] = "assets/triangle.svg";
             break;
           case "diamond":
-            playerSettings[currentplayer] = "../assets/diamond.svg";
+            playerSettings[currentplayer] = "assets/diamond.svg";
             break;
 
           default:

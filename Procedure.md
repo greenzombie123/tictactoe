@@ -136,4 +136,5 @@ If you press the reset button during a game, open reset modal that has two butto
             remove settings
             reset board
             call game.setGame
-            
+
+currentPlayer.marker
